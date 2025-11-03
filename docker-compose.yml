@@ -10,6 +10,7 @@ services:
       - db
     tty: true
     stdin_open: true
+    command: ["bin/dev"]
 
   db:
     image: postgres:15

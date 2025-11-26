@@ -93,3 +93,60 @@ Chart.jsによる消費履歴のグラフ化
 テスト：RSpec
 
 バージョン管理	GitHub
+
+
+### ER図
+[![Image from Gyazo](https://i.gyazo.com/2427dfe9bd14ebd4cfefb916dfb06bfd.png)](https://gyazo.com/2427dfe9bd14ebd4cfefb916dfb06bfd)
+
+
+### MVPで実装する予定の機能
+・食材の登録・編集・削除機能
+
+・数量・単位・賞味期限の管理
+
+・enumによる在庫ステータス表示
+
+・カテゴリ別表示（肉類 / 調味料 / 飲料など）
+
+・在庫切れ食材のリスト化
+
+・買い物リストへの追加機能
+
+・新規登録・ログイン機能
+
+### テーブル詳細
+#### Usersテーブル（例：ユーザー情報）
+- name : ユーザーの表示名（山田太郎）
+- email : ログイン認証用のメールアドレス / ユニーク制約 （taro@example.com）
+- encrypted_password : ログイン認証用のパスワード
+- avator ： ユーザーの任意の画像
+
+#### Foodsテーブル（例：食品情報）
+- name : 食品名（レタス）
+- expiry_date : 消費期限 （2025/11/26）
+- quantity : 食品の量
+- unit ： 食品の数詞（個、g）
+- status ： 在庫、期限の状況(enum/stored:0, expiring:1, expired:2, consumed:3)
+- memo ： 備考（適当なメモ）
+
+#### Categoriesテーブル（例：カテゴリー情報）
+- name : カテゴリー名（肉類）
+
+#### Notificationsテーブル（例：通知情報）
+- title : 通知の題名（「〇〇の賞味期限が3日前です」）
+- checked : 既読か
+- notification_timing ： 通知タイミング管理(enum/expiry_3days:0, expiry_today: 1, expired: 2)
+
+#### ShoppingItemsテーブル（例：買い物リスト情報）
+- name : 買う予定の食品名（レタス）
+- is_bought : 買ったフラグ（boolean）
+- memo ： 備考
+
+### ER図の注意点
+- [ ] プルリクエストに最新のER図のスクリーンショットを画像が表示される形で掲載できているか？
+- [ ] テーブル名は複数形になっているか？
+- [ ] カラムの型は記載されているか？
+- [ ] 外部キーは適切に設けられているか？
+- [ ] リレーションは適切に描かれているか？多対多の関係は存在しないか？
+- [ ] STIは使用しないER図になっているか？
+- [ ] Postsテーブルにpost_nameのように"テーブル名+カラム名"を付けていないか？

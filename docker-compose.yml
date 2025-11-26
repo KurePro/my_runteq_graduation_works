@@ -1,0 +1,26 @@
+services:
+  web:
+    build: .
+    volumes:
+      - .:/rails
+      - bundle_data:/rails/vendor/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    tty: true
+    stdin_open: true
+    command: ["bin/dev"]
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres_data:
+  bundle_data:

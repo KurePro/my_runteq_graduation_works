@@ -10,12 +10,15 @@ services:
       - db
     tty: true
     stdin_open: true
+    environment:
+      TZ: Asia/Tokyo
     command: ["bin/dev"]
 
   db:
     image: postgres:15
     environment:
       POSTGRES_PASSWORD: password
+      TZ: Asia/Tokyo
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:

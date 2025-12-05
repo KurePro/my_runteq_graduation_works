@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+@theme {
+  --font-montserrat: "Montserrat", "M PLUS 1p", sans-serif;
+  --font-mplus: "M PLUS 1p", sans-serif;
+}

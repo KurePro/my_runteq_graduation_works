@@ -1,1 +1,73 @@
-<p>仮トップページです。</p>
+<div class="min-h-screen flex flex-col font-montserrat text-[#2C5159]/90">
+  <section class="bg-[#D6EFED]/90 py-20 px-4 text-center border-b-8 border-[#6BAFB9]/90">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="font-montserrat text-4xl md:text-6xl font-bold tracking-widest mb-4 drop-shadow-sm">
+        Fridge Note
+      </h1>
+      
+      <p class="font-mplus text-xl md:text-2xl font-bold mb-8 leading-relaxed">
+        冷蔵庫の中身を、<br class="md:hidden">見える化しよう。
+      </p>
+      
+      <p class="font-mplus text-base md:text-lg mb-10 text-[#2C5159]/80 max-w-2xl mx-auto">
+        あっ、期限切れてる！これ冷蔵庫にあったのにまた買っちゃった！<br>
+        Fridge Noteは、あなたの冷蔵庫に眠る食材を教えてくれるパートナーです。
+      </p>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="#" class="font-mplus inline-flex justify-center items-center bg-[#F4D35E]/90 text-[#2C5159] px-8 py-4 rounded-full font-bold shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-lg">
+          はじめる（新規登録）
+        </a>
+        
+        <a href="#" class="font-mplus inline-flex justify-center items-center bg-[#FDFDFD]/90 text-[#2C5159] border-2 border-[#2C5159] px-8 py-4 rounded-full font-bold shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 text-lg">
+          ログイン
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 px-4 bg-[#FDFDFD]/90 flex-grow">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="font-mplus text-2xl md:text-3xl font-bold mb-12 text-[#6BAFB9]/90">
+        Fridge Noteの特徴
+      </h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-gray-50 p-8 rounded-2xl shadow-md">
+          <div class="mb-4 flex justify-center">
+            <%= image_tag 'icon_067930_48.png', alt: "在庫管理" %>
+          </div>
+          <h3 class="font-mplus text-xl font-bold mb-3">かんたん在庫管理</h3>
+          <p class="font-mplus text-sm text-gray-600 leading-relaxed">
+            買ったものをポチッと登録。<br>冷蔵庫の中身が一目瞭然。
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-8 rounded-2xl shadow-md">
+          <div class="mb-4 flex justify-center">
+            <%= image_tag 'icon_036350_48.png', alt: "通知" %>
+          </div>
+          <h3 class="font-mplus text-xl font-bold mb-3">うっかり防止通知</h3>
+          <p class="font-mplus text-sm text-gray-600 leading-relaxed">
+            賞味期限が近づくとお知らせ。<br>「気づいたら腐ってた」を防ぎます。
+          </p>
+        </div>
+
+        <div class="bg-gray-50 p-8 rounded-2xl shadow-md">
+          <div class="mb-4 flex justify-center">
+            <%= image_tag 'icon_065630_48.png', alt: "使い切る" %>
+          </div>
+          <h3 class="font-mplus text-xl font-bold mb-3">食品ロス削減</h3>
+          <p class="font-mplus text-sm text-gray-600 leading-relaxed">
+            食材を無駄なく使い切って<br>お財布にも地球にも優しく。
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-[#2C5159] text-white py-6 text-center">
+    <p class="font-montserrat text-sm opacity-80">&copy; 2025 Fridge Note. All rights reserved.</p>
+  </footer>
+
+</div>

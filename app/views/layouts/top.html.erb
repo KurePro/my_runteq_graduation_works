@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fridge Note</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+    <body class="min-h-screen flex flex-col font-montserrat text-[#2C5159]/90">
+      <section class="bg-[#D6EFED]/90 py-18 px-4 text-center border-b-8 border-[#6BAFB9]/90">
+        <div class="max-w-4xl mx-auto">
+          <h1 class="font-montserrat text-4xl md:text-6xl font-bold tracking-widest mb-4 drop-shadow-sm">
+            Fridge Note
+          </h1>
+              
+          <p class="font-mplus text-xl md:text-2xl font-bold mb-8 leading-relaxed">
+            冷蔵庫の中身を、<br class="md:hidden">見える化しよう。
+          </p>
+              
+          <p class="font-mplus text-base md:text-lg mb-10 text-[#2C5159]/80 max-w-2xl mx-auto">
+            あっ、期限切れてる！これ冷蔵庫にあったのにまた買っちゃった！<br>
+            Fridge Noteは、あなたの冷蔵庫に眠る食材を教えてくれるパートナーです。
+          </p>
+
+          <div class="font-mplus flex flex-col sm:flex-row justify-center gap-4">
+            <%= link_to "はじめる（新規登録）", new_user_registration_path, class: "font-mplus inline-flex justify-center items-center bg-[#F4D35E]/90 text-[#2C5159] px-8 py-4 rounded-full font-bold shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-lg" %>
+            <%= link_to "ログイン", new_user_session_path, class: "font-mplus inline-flex justify-center items-center bg-[#FDFDFD]/90 text-[#2C5159] border-2 border-[#2C5159] px-8 py-4 rounded-full font-bold shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 text-lg" %>
+          </div>
+        </div>
+      </section>
+
+      <%= yield %>
+
+      <%= render 'devise/shared/footer' %>
+
+    </body>
+</html>

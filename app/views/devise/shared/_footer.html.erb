@@ -4,7 +4,9 @@
       <p class="font-montserrat text-xl font-bold pb-1">
         Fridge Note
       </p>
-      <%= image_tag 'iconmonstr-github-1-32.png', alt: "GitHubアイコン" %>
+      <%= link_to 'https://github.com/KurePro', target: "_blank", rel: "noopener noreferrer", class: "hover:opacity-50 transition-opacity" do %>
+        <%= image_tag 'iconmonstr-github-1-32.png', alt: "GitHubアイコン" %>
+      <% end %>
     </div>
 
     <nav class="flex gap-4 text-sm font-mplus opacity-80">

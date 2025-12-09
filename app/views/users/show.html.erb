@@ -1,0 +1,33 @@
+<div class="min-h-[calc(100vh-260px)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#FDFDFD]">
+  <div id="profile" class="max-w-md w-full bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
+    
+    <div class="pt-10 pb-6 text-center">
+      <div class="avatar inline-block relative">
+        <div class="w-24 h-24 rounded-full border-4 border-[#D6EFED] mx-auto overflow-hidden p-1">
+          <%= image_tag 'Fridge_Note_Logo.png', alt: "Avatar", class: "w-full h-full object-contain rounded-full" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-10 pb-10 text-center">
+      <h2 class="font-mplus text-2xl font-bold text-[#2C5159] mb-2">
+        <%= @user.name %>
+      </h2>
+      <p class="text-sm text-gray-500 font-mplus mb-8">
+        <%= @user.email %>
+      </p>
+
+      <div class="space-y-2">
+        <div class="flex justify-center">
+          <%= link_to edit_user_registration_path, class: "block w-fit py-3 px-4 border border-transparent text-lg font-bold rounded-full text-[#2C5159] bg-[#F4D35E] hover:bg-[#F4D35E]/80 shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 font-mplus" do %>
+            プロフィール編集
+          <% end %>
+        </div>
+
+        <div class="flex justify-center pt-4">
+          <%= link_to t('.delete_account'), user_registration_path, data: { turbo_method: :delete, turbo_confirm: t('.are_you_sure') }, class: "text-sm text-red-400 hover:text-red-600 font-bold underline decoration-red-200 hover:decoration-red-600 transition-all" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

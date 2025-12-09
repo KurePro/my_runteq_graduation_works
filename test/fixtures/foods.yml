@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  category: one
+  name: MyString
+  expiry_date: 2025-12-09 11:51:00
+  quantity: 1
+  unit: MyString
+  status: 1
+  memo: MyString
+
+two:
+  user: two
+  category: two
+  name: MyString
+  expiry_date: 2025-12-09 11:51:00
+  quantity: 1
+  unit: MyString
+  status: 1
+  memo: MyString

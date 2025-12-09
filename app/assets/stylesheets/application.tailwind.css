@@ -3,4 +3,25 @@
 @theme {
   --font-montserrat: "Montserrat", "M PLUS 1p", sans-serif;
   --font-mplus: "M PLUS 1p", sans-serif;
+
+  /* フラッシュメッセージ（成功） */
+  --color-success: #DFF5E1;
+  --color-on-success: #2C5E3A;
+
+  /* フラッシュメッセージ（エラー） */
+  --color-error: #FDE2E4;
+  --color-on-error: #7A2E35;
+
+  /* フラッシュメッセージ（警告） */
+  --color-warning: #FFF7D6;
+  --color-on-warning: #7A5E2E;
+
+  --animate-flash: flash-fade 5s forwards;
+
+  @keyframes flash-fade {
+    0% { transform: translateX(100%); opacity: 0; }
+    10% { transform: translateX(0); opacity: 1; }
+    80% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(100%); opacity: 0; }
+  }
 }

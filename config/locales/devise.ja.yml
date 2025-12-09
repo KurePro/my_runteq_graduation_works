@@ -17,6 +17,8 @@ ja:
               too_long: "は%{count}文字以下に設定して下さい。"
               invalid: "は有効でありません。"
               confirmation: "が内容とあっていません。"
+            current_password:
+              invalid: "は不正な値です。"
     attributes:
       user:
         current_password: "現在のパスワード"

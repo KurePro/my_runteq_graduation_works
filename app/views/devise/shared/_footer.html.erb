@@ -1,0 +1,20 @@
+<footer class="sticky top-0 z-50 w-full bg-[#2C5159]/85 text-white py-5">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col gap-3">
+    <div class="gap-3 inline-flex">
+      <p class="font-montserrat text-xl font-bold pb-1">
+        Fridge Note
+      </p>
+      <%= image_tag 'iconmonstr-github-1-32.png', alt: "GitHubアイコン" %>
+    </div>
+
+    <nav class="flex gap-4 text-sm font-mplus opacity-80">
+      <%= link_to "利用規約", terms_path, class: "hover:underline" %>
+      <%= link_to "プライバシーポリシー", privacy_path, class: "hover:underline" %>
+      <%= link_to "お問い合わせ", contact_path, class: "hover:underline" %>
+    </nav>
+
+    <p class="font-montserrat text-sm opacity-80 mt-4">
+      &copy; 2025 Fridge Note. All Rights Reserved.
+    </p>
+  </div>
+</footer>

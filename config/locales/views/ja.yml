@@ -14,6 +14,9 @@ ja:
         title: "アカウント編集"
       new:
         title: "アカウント登録"
+    sessions:
+      new:
+        title: "ログイン"
   users:
     show:
       title: "%{current_user.name}さんのプロフィール"

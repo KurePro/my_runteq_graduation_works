@@ -12,6 +12,8 @@ ja:
     registrations:
       edit:
         title: "アカウント編集"
+      new:
+        title: "アカウント登録"
   users:
     show:
       title: "%{current_user.name}さんのプロフィール"

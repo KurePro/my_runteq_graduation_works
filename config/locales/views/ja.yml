@@ -8,6 +8,10 @@ ja:
         email: "メールアドレス"
         password: "パスワード"
         password_confirmation: "パスワード（確認用）"
+  devise:
+    registrations:
+      edit:
+        title: "アカウント編集"
   users:
     show:
       title: "%{current_user.name}さんのプロフィール"

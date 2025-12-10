@@ -1,4 +1,9 @@
 module ApplicationHelper
+  def page_title(title = '', admin: false)
+    base_title = admin ? 'Fridge Note(管理画面)' : 'Fridge Note'
+    title.present? ? "#{title} | #{base_title}" : base_title
+  end
+  
   def flash_kind(type)
     base_classes = "font-mplus animate-flash w-fit max-w-[300px] px-3 py-6 rounded-md shadow-lg border border-black/5 pointer-events-auto mb-2"
 

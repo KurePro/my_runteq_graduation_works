@@ -14,14 +14,16 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="min-h-screen flex flex-col">
     <% if user_signed_in? %>
       <%= render 'devise/shared/header' %>
     <% else %>
       <%= render 'devise/shared/before_login_header' %>
     <% end %>
     <%= render 'devise/shared/flash_message' %>
-    <%= yield %>
+    <main class="flex-1">
+      <%= yield %>
+    </main>
     <%= render 'devise/shared/footer' %>
   </body>
 </html>

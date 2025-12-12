@@ -26,6 +26,8 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+gem 'draper'
+
 gem 'rails-i18n'
 
 gem "devise"

@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
+  root 'top#index'
   devise_for :users
   resources :users, only: [:show]
-  
-  root 'top#index'
-
   resources :foods
 
   get "/terms", to: "static_pages#terms", as: "terms"

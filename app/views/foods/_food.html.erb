@@ -5,7 +5,7 @@
   <span><%= food.name %></span>
 
   <p>カテゴリー</p>
-  <span><%= food.category.name %></span>
+  <span><%= food.category&.name || "未分類" %></span>
 
   <p>賞味期限</p>
   <span><%= food.expiry_date %></span>

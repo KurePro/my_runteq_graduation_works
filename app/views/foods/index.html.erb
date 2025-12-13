@@ -1,2 +1,8 @@
-<h1>Foods#index</h1>
-<p>Find me in app/views/foods/index.html.erb</p>
+<% content_for(:title, t('.title')) %>
+<div class="flex max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#FDFDFD]/90">
+  <% if @foods.present? %>
+    <%= render @foods %>
+  <% else %>
+    <p class="font-bold font-mplus text-[#2B2B2B]/90">食品が登録されていません。</p>
+  <% end %>
+</div>

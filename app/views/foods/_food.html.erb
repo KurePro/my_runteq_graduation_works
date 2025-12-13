@@ -1,0 +1,26 @@
+<h1>食品一覧</h1>
+
+<div>
+  <p>食品名</p>
+  <span><%= food.name %></span>
+
+  <p>カテゴリー</p>
+  <span><%= food.category.name %></span>
+
+  <p>賞味期限</p>
+  <span><%= food.expiry_date %></span>
+
+  <p>量</p>
+  <span><%= food.quantity %> <%= food.unit %></span>
+
+  <div>
+    <%= link_to edit_food_path(food), id: "button-edit-#{food.id}" do %>
+    <!-- 後で編集アイコン追加 -->
+      編集
+    <% end %>
+    <%= link_to food_path(food),id: "button-delete-#{food.id}", data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } do %>
+    <!-- 後で削除アイコン追加 -->
+      削除
+    <% end %>
+  </div>
+</div>

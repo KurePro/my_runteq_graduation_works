@@ -1,6 +1,11 @@
 class FoodsController < ApplicationController
   def index
-    @foods = Food.all
+    @foods = current_user.foods.order(expiry_date: :asc)
+  end
+
+  def new
+    @food = Food.new
+    @categories = Category.all
   end
 
   private

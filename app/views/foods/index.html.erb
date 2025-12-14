@@ -1,8 +1,21 @@
 <% content_for(:title, t('.title')) %>
-<div class="flex max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#FDFDFD]/90">
-  <% if @foods.present? %>
-    <%= render @foods %>
-  <% else %>
-    <p class="font-bold font-mplus text-[#2B2B2B]/90">食品が登録されていません。</p>
-  <% end %>
+<div class="flex flex-col max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#FDFDFD]/90">
+  <div class="flex mb-8 px-4">
+    <h1 class="font-mplus text-2xl font-bold text-[#2C5159]">
+      <%= t('.title') %>
+    </h1>
+  </div>
+  <div class="space-y-6"><%# 子要素どうしの縦の間隔指定 %>
+    <% if @foods.present? %>
+    <%# スマホ：1列／タブレット・PC：2列／モニター：3列 %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <%= render @foods %>
+    <% else %>
+      <div class="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-gray-200">
+        <p class="font-bold font-mplus text-[#2C5159]">
+          <%= t('.no_foods') %>
+        </p>
+      </div>
+    <% end %>
+  </div>
 </div>

@@ -16,14 +16,14 @@
 
   <body class="min-h-screen flex flex-col">
     <% if user_signed_in? %>
-      <%= render 'devise/shared/header' %>
+      <%= render 'shared/header' %>
     <% else %>
       <%= render 'devise/shared/before_login_header' %>
     <% end %>
-    <%= render 'devise/shared/flash_message' %>
+    <%= render 'shared/flash_message' %>
     <main class="flex-1">
       <%= yield %>
     </main>
-    <%= render 'devise/shared/footer' %>
+    <%= render 'shared/footer' %>
   </body>
 </html>

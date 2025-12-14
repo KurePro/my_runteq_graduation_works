@@ -5,8 +5,8 @@
     <%= f.text_field :name %>
   </div>
   <div class="mb-4">
-    <%= f.label :category_name %>
-    <%= f.collection_select :category_name, @categories, :id, :name, prompt: "カテゴリー" %>
+    <%= f.label :category_id %>
+    <%= f.collection_select :category_id, @categories, :id, :name, prompt: "カテゴリー" %>
   </div>
   <div class="mb-4">
     <%= f.label :expiry_date %>

@@ -2,6 +2,8 @@ ja:
   activerecord:
     models:
       user: "ユーザー"
+      food: "食材"
+      category: "カテゴリー"
     attributes:
       user:
         name: "ユーザーネーム"

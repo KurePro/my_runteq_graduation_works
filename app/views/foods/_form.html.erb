@@ -1,5 +1,5 @@
-<%= form_with model: @food, local: :true do |form| %>
-  <%= render 'shared/error_messages' %>
+<%= form_with(model: food, local: true, class: "space-y-6") do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
   <div class="mb-4">
     <%= f.label :name %>
     <%= f.text_field :name %>
@@ -19,6 +19,10 @@
   <div class="mb-4">
     <%= f.label :unit %>
     <%= f.text_field :unit %>
+  </div>
+  <div class="mb-4">
+    <%= f.label :memo %>
+    <%= f.text_area :memo %>
   </div>
   <div class="mb-4">
     <%= f.submit "登録" %>

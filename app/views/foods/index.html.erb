@@ -1,9 +1,10 @@
 <% content_for(:title, t('.title')) %>
 <div class="flex flex-col max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#FDFDFD]/90">
-  <div class="flex mb-8 px-4">
+  <div class="flex justify-between items-center mb-8 px-4">
     <h1 class="font-mplus text-2xl font-bold text-[#2C5159]">
       <%= t('.title') %>
     </h1>
+    <%= link_to t('.add_food'), new_food_path, class: "bg-[#2C5159] text-white px-4 py-2 rounded-lg hover:bg-[#2C5159]/70" %>
   </div>
   <div class="space-y-6"><%# 子要素どうしの縦の間隔指定 %>
     <% if @foods.present? %>

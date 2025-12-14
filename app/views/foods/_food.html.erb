@@ -1,26 +1,63 @@
-<h1>食品一覧</h1>
+<%# カード本体 %>
+<%# 左側のボーダー(border-l-8)で、今後ステータス色を表示できるように %>
+<div id="food-<%= food.id %>" class="bg-white rounded-2xl shadow-sm border border-gray-100 px-5 pt-5 pb-3 flex flex-col justify-between h-full hover:shadow-md transition-shadow duration-300 border-l-8 border-l-[#6BAFB9]/70">
+  
+  <div class="mb-4">
+    <%# 上段：食品名とカテゴリー %>
+    <%# 食品名／'items-'を用いて上中下段に文章を配置／line-clampで文章省略 %>
+    <div class="flex justify-between items-start mb-2">
+      <h2 class="font-mplus text-xl font-bold text-[#2C5159] line-clamp-1 mr-2">
+        <%= food.name %>
+      </h2>
+      <%# カテゴリー／今後カテゴリーごとに背景色が変わるようにする予定／'whitespace-nowrap'で折り返しなし %>
+      <span class="inline-block px-2 py-1 text-sm font-bold text-[#5E3030]/70 bg-[#EE8D8D]/60 rounded-md whitespace-nowrap">
+        <%= food.category&.name || "未分類" %>
+      </span>
+    </div>
 
-<div>
-  <p>食品名</p>
-  <span><%= food.name %></span>
+    <%# 中段：数量と単位（大きめに設定）／gap %>
+    <div class="flex items-baseline gap-1 text-[#2C5159] mb-3">
+      <span class="text-xs text-gray-400 font-bold">残り</span>
+      <span class="font-montserrat text-3xl font-bold tracking-tight"><%= food.quantity %></span>
+      <span class="font-mplus text-sm font-bold"><%= food.unit %></span>
+    </div>
 
-  <p>カテゴリー</p>
-  <span><%= food.category&.name || "未分類" %></span>
+    <%# 下段：賞味期限（アイコン付きで小さめ） %>
+    <div class="flex flex-col gap-2">
+      <div class="flex items-center text-[#2C5159] text-sm font-montserrat bg-gray-50 px-3 py-2 rounded-lg w-fit">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 mr-1.5 text-gray-400">
+          <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
+        </svg>
+        <%# 'strftime'を用いて日付表示指定 %>
+        <%= food.expiry_date.strftime("%Y.%m.%d") %>
+      </div>
 
-  <p>賞味期限</p>
-  <span><%= food.expiry_date %></span>
+      <%# メモ（存在する場合のみ表示） %>
+      <% if food.memo.present? %>
+        <div class="flex items-start text-xs md:text-sm text-[#2C5159] font-mplus bg-[#FFF8E1] px-3 py-2 rounded-lg border border-[#FFE0B2]/50">
+          <%# メモアイコン（鉛筆ノート） %>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5 mr-1.5 mt-0.5 text-[#FFA000] flex-shrink-0">
+            <path fill-rule="evenodd" d="M10 2c-1.716 0-3.408.106-5.07.31C3.806 2.45 3 3.414 3 4.517V17.25a.75.75 0 001.075.676L10 15.082l5.925 2.844A.75.75 0 0017 17.25V4.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 2z" clip-rule="evenodd" />
+          </svg>
+          <span class="line-clamp-2"><%= food.memo %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
-  <p>量</p>
-  <span><%= food.quantity %> <%= food.unit %></span>
-
-  <div>
-    <%= link_to edit_food_path(food), id: "button-edit-#{food.id}" do %>
-    <!-- 後で編集アイコン追加 -->
-      編集
+  <%# 操作ボタンエリア（右下に配置） %>
+  <div class="flex justify-end gap-3 pt-3 border-t border-gray-100">
+    <%= link_to edit_food_path(food), id: "button-edit-#{food.id}", class: "text-[#2C5159]/80 hover:text-[#6BAFB9] transition-colors p-1" do %>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
+        <path d="M5.433 13.917l1.262-3.155A4 4 0 017.58 9.42l6.92-6.918a2.121 2.121 0 013 3l-6.92 6.918c-.383.383-.84.685-1.343.886l-3.154 1.262a.5.5 0 01-.65-.65z" />
+        <path d="M3.5 5.75c0-.69.56-1.25 1.25-1.25H10A.75.75 0 0010 3H4.75A2.75 2.75 0 002 5.75v9.5A2.75 2.75 0 004.75 18h9.5A2.75 2.75 0 0017 15.25V10a.75.75 0 00-1.5 0v5.25c0 .69-.56 1.25-1.25 1.25h-9.5c-.69 0-1.25-.56-1.25-1.25v-9.5z" />
+      </svg>
     <% end %>
-    <%= link_to food_path(food),id: "button-delete-#{food.id}", data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } do %>
-    <!-- 後で削除アイコン追加 -->
-      削除
+    
+    <%= link_to foods_path(food), id: "button-delete-#{food.id}", class: "text-[#2C5159]/80 hover:text-red-400 transition-colors p-1", data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } do %>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
+        <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z" clip-rule="evenodd" />
+      </svg>
     <% end %>
   </div>
 </div>

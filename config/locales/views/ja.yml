@@ -30,3 +30,8 @@ ja:
       title: "食材一覧"
       add_food: "食材を追加する"
       no_foods: "まだ食材が登録されていません。"
+      are_you_sure: "本当にこの食材を削除しますか？"
+    new:
+      title: "新しい食材を登録"
+    edit:
+      title: "食材情報を編集"

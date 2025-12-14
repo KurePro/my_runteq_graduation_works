@@ -18,6 +18,25 @@ class FoodsController < ApplicationController
     end
   end
 
+  def edit
+    @food = current_user.foods.find(params[:id])
+  end
+
+  def update
+    @food = current_user.foods.find(params[:id])
+    if @food.update(food_params)
+      redirect_to foods_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    food = current_user.foods.find(params[:id])
+    food.destroy
+    redirect_to foods_path, status: :see_other
+  end
+
   private
 
   def food_params

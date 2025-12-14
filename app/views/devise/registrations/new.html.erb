@@ -8,7 +8,7 @@
     </div>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "mt-8 space-y-6" }) do |f| %>
-      <%= render "shared/error_messages", resource: resource %>
+      <%= render "shared/error_messages", object: resource %>
       <div class="space-y-5 font-mplus">
         <div>
           <%= f.label :name, class: "block text-sm font-bold text-[#2C5159] mb-1" %>

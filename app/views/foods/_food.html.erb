@@ -11,12 +11,12 @@
       </h2>
       <%# カテゴリー／今後カテゴリーごとに背景色が変わるようにする予定／'whitespace-nowrap'で折り返しなし %>
       <span class="inline-block px-2 py-1 text-sm font-bold text-[#5E3030]/70 bg-[#EE8D8D]/60 rounded-md whitespace-nowrap">
-        <%= food.category_name %>
+        <%= food.decorate.category_name %>
       </span>
     </div>
 
     <%# 中段：数量と単位（大きめに設定）／gap %>
-    <% if food.quantity_with_unit %>
+    <% if food.decorate.quantity_with_unit %>
       <div class="flex items-baseline gap-1 text-[#2C5159] mb-3">
         <span class="text-xs text-gray-400 font-bold">残り</span>
         <span class="font-montserrat text-3xl font-bold tracking-tight">
@@ -36,7 +36,7 @@
             <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
           </svg>
           <%# 'strftime'を用いて日付表示指定 %>
-          <%= food.display_expiry_date %>
+          <%= food.decorate.display_expiry_date %>
         </div>
       <% end %>
 

@@ -2,7 +2,7 @@ class FoodsController < ApplicationController
   before_action :set_categories, only: [:new, :create, :edit, :update]
 
   def index
-    @foods = current_user.foods.order(expiry_date: :asc)
+    @foods = current_user.foods.order(expiry_date: :asc).decorate
   end
 
   def new

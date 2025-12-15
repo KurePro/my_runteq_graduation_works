@@ -1,13 +1,16 @@
 class FoodDecorator < Draper::Decorator
   delegate_all
 
-  # Define presentation-specific methods here. Helpers are accessed through
-  # `helpers` (aka `h`). You can override attributes, for example:
-  #
-  #   def created_at
-  #     helpers.content_tag :span, class: 'time' do
-  #       object.created_at.strftime("%a %m/%d/%y")
-  #     end
-  #   end
+  def category_name
+    object.category&.name || "未分類"
+  end
 
+  def quantity_with_unit
+    return nil if object.quantity.blank? || object.unit.blank?
+    "#{object.quantity} #{object.unit}"
+  end
+
+  def display_expiry_date
+    object.expiry_date&.strftime("%Y.%m.%d")
+  end
 end

@@ -16,7 +16,7 @@
     </div>
 
     <%# 中段：数量と単位（大きめに設定）／gap %>
-    <% if food.decorate.quantity_with_unit %>
+    <% if food.quantity.present? %>
       <div class="flex items-baseline gap-1 text-[#2C5159] mb-3">
         <span class="text-xs text-gray-400 font-bold">残り</span>
         <span class="font-montserrat text-3xl font-bold tracking-tight">

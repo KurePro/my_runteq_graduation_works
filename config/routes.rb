@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, only: [:show]
   resources :foods
-  resources :notifications, only: %i[:index, :destroy]
+  resources :notifications, only: [:index, :destroy]
 
   get "/terms", to: "static_pages#terms", as: "terms"
   get "/privacy", to: "static_pages#privacy", as: "privacy"

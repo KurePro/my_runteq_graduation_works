@@ -2,8 +2,31 @@
 # exit on error
 set -o errexit
 
+# Gemのインストール
 bundle install
+
+# Solid Queueのテーブルがあるか確認して、なければ作る
+echo "Checking for Solid Queue tables..."
+SOLID_QUEUE_EXISTS=$(bundle exec rails runner "
+begin
+ tables = ActiveRecord::Base.connection.tables.grep(/solid_queue/)
+ puts tables.size >= 5 ? 'true' : 'false'
+rescue
+ puts 'false'
+end
+")
+
+if [ "$SOLID_QUEUE_EXISTS" = "false" ]; then
+  echo "Solid Queue tables not found. Loading queue schema..."
+  # 既存データは消さずに、Solid Queueのテーブルだけをロードする
+  DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rails db:schema:load SCHEMA=db/queue_schema.rb
+else
+  echo "Solid Queue tables found."
+fi
+
+# 通常のマイグレーション（未実行分があれば実行）
+bundle exec rails db:migrate
+
+# アセット（CSS/JS）のビルド
 bundle exec rails assets:precompile
 bundle exec rails assets:clean
-
-bundle exec rails db:migrate

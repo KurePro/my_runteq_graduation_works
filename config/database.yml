@@ -16,7 +16,6 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  host: db
   username: postgres
   password: password
   port: 5432
@@ -25,6 +24,7 @@ default: &default
 
 development:
   <<: *default
+  host: db
   database: chilltrack_development
 
   # The specified database role being used to connect to PostgreSQL.
@@ -59,6 +59,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  host: db
   database: chilltrack_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
@@ -84,10 +85,7 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: app_production
-    username: app
-    password: <%= ENV["APP_DATABASE_PASSWORD"] %>
+    url: <%= ENV["DATABASE_URL"] %>
   queue:
     <<: *primary_production
-    database: app_production_queue
     migrations_paths: db/queue_migrate

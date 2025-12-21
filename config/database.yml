@@ -83,9 +83,5 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  primary: &primary_production
     <<: *default
     url: <%= ENV["DATABASE_URL"] %>
-  queue:
-    <<: *primary_production
-    migrations_paths: db/queue_migrate

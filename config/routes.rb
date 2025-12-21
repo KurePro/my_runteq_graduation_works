@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, only: [:show]
   resources :foods
-  resources :notifications, only: [:index, :destroy]
+  resources :notifications, only: [:index] do
+    collection do
+      delete :destroy_all
+    end
+  end
 
   get "/terms", to: "static_pages#terms", as: "terms"
   get "/privacy", to: "static_pages#privacy", as: "privacy"

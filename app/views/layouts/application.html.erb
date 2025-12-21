@@ -24,6 +24,7 @@
     <main class="flex-1">
       <%= yield %>
     </main>
+    <%= turbo_frame_tag :modal %>
     <%= render 'shared/footer' %>
   </body>
 </html>

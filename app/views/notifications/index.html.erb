@@ -1,0 +1,41 @@
+<% content_for(:title, t('.title')) %>
+<%= turbo_frame_tag "modal" do %>
+
+  <%# StimulusJS の data-action 属性の書き方↓
+    click->modal#hide → click したらmodalコントローラーのhide メソッド（関数）を実行
+    keydown.esc->modal#hide → keydown（キーボードを押した時）、Escキーだったらmodalコントローラーのhideメソッドを実行 %>
+  <div data-controller="modal" data-action="click->modal#hide keydown.esc->modal#hide" tabindex="-1">
+    <div class="fixed inset-0 z-50 flex items-start justify-end top-16 right-4 bg-[#2B2B2B]/50 backdrop-blur-xs
+          md:z-40 md:bg-[#2B2B2B]/50 md:backdrop-blur-xs md:absolute md:top-0 md:left-0 md:h-full md:w-full">
+
+      <%# モーダル内をクリックしたときに親要素へのイベント伝播を止める %>
+      <div onclick="event.stopPropagation()"
+        class="max-w-xs w-full bg-[#FDFDFD]/90 rounded-lg shadow-lg overflow-wrap
+        md:w-96 md:border md:border-gray-200
+        md:fixed md:top-27 md:right-98 lg:right-157">
+
+        <div class="flex justify-end pt-4 pr-4">
+          <button type="button" data-action="click->modal#hide">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-[#2C5159] hover:opacity-50 transition-opacity">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+          </button>
+        </div>
+        <% if @notifications.present? %>
+          <div class="flex justify-end px-4 mt-2">
+            <%= button_to t('.clear_all'), destroy_all_notifications_path, method: :delete, class: "text-sm font-mplus text-[#2C5159] hover:underline" %>
+          </div>
+          <div class="space-y-4 p-6"><%# 子要素どうしの縦の間隔指定 %>
+            <%= render @notifications %>
+          </div>
+        <% else %>
+          <div class="p-6">
+            <p class="border-b-2 border-[#6BAFB9]/50 bg-[#FDFDFD]/90 shadow-sm rounded-lg p-4 max-w-md w-full font-mplus text-[#2C5159]">
+              <%= t('.no_notifications') %>
+            </p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

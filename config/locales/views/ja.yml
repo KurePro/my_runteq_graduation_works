@@ -35,3 +35,8 @@ ja:
       title: "新しい食材を登録"
     edit:
       title: "食材情報を編集"
+  notifications:
+    index:
+      title: "通知一覧"
+      no_notifications: "通知はありません。"
+      clear_all: "全ての通知を削除"

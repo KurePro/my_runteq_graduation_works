@@ -23,22 +23,17 @@
       </div>
 
       <%# ハンバーガーメニュー（モバイル表示） %>
-      <div data-controller="hamburger" class="md:hidden flex flex-row items-center gap-4">
-        <%= link_to notifications_path, data: { turbo_frame: :modal }, class: "text-[#2C5159]/80 hover:text-[#6BAFB9] transition-colors p-1" do %>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7">
+      <div class="md:hidden flex flex-row items-center gap-4">
+        <%= link_to notifications_path, data: { turbo_frame: :modal }, class: "text-[#2C5159]/80 p-1" do %>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8">
             <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
           </svg>
         <% end %>
         <div data-action="click->hamburger#toggle">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <%# ハンバーガーボタン（三本線） %>
+            <svg data-hamburger-target="openButton" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25" />
             </svg>
-          <div data-hamburger-target="menu" class="hidden font-mplus flex flex-col items-center gap-4 text-xs absolute top-20 right-4 bg-[#D6EFED]/95 backdrop-blur-sm border-2 border-[#6BAFB9]/90 shadow-md rounded-lg p-6 w-40">
-            <%= link_to "食材一覧", foods_path, class: "block font-bold hover:text-[#6BAFB9] transition-colors" %>
-            <%= link_to "買い物リスト", "#", class: "block font-bold hover:text-[#6BAFB9] transition-colors" %>
-            <%= link_to "マイページ", user_path(current_user), class: "block font-bold hover:text-[#6BAFB9] transition-colors" %>
-            <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "font-bold border-2 border-[#2C5159] text-[#2C5159] px-4 py-2 rounded-full hover:bg-[#2C5159] hover:text-white transition-all" %>
-          </div>
         </div>
       </div>
     </div>

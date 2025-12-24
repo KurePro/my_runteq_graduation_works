@@ -16,15 +16,18 @@
 
   <body class="min-h-screen flex flex-col">
     <% if user_signed_in? %>
-      <%= render 'shared/header' %>
+      <div data-controller="hamburger">
+        <%= render 'shared/header' %>
+        <%= render 'shared/mobile_menu' %>
+      </div>
     <% else %>
       <%= render 'devise/shared/before_login_header' %>
     <% end %>
     <%= render 'shared/flash_message' %>
+    <%= turbo_frame_tag :modal %>
     <main class="flex-1">
       <%= yield %>
     </main>
-    <%= turbo_frame_tag :modal %>
     <%= render 'shared/footer' %>
   </body>
 </html>

@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   has_many :foods, dependent: :destroy
   has_many :categories, dependent: :destroy
-  has_many :shopping_items, dependent: :destroy
+  #has_many :shopping_items, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
   def self.guest

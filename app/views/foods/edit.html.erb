@@ -1,7 +1,7 @@
 <% content_for(:title, t('.title')) %>
-<div class="flex max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#FDFDFD]/90">
+<div class="flex max-w-7xl w-full justify-center items-center mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#FDFDFD]/90">
   <%= render 'form', food: @food, categories: @categories %>
 </div>
 <div class="text-center mt-6">
-  <%= link_to "一覧に戻る", foods_path, class: "text-[#2C5159] hover:text-[#6BAFB9] text-sm underline decoration-gray-300 hover:decoration-[#6BAFB9] transition-all" %>
+  <%= link_to "一覧に戻る", foods_path, class: "text-[#2C5159] hover:text-[#6BAFB9] text-sm md:text-lg underline decoration-gray-300 hover:decoration-[#6BAFB9] transition-all" %>
 </div>

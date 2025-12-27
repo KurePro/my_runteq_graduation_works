@@ -70,12 +70,13 @@ ja:
         back: "戻る"
         we_need_your_current_password_to_confirm_your_changes: "変更を反映するには現在のパスワードを入力してください"
       new:
-        sign_in: "アカウントをお持ちの方はこちら（ログイン）"
+        sign_in_prefix: "アカウントをお持ちの方はこちら"
+        sign_in_suffix: "（ログイン）"
         sign_up: "アカウント登録"
     sessions:
       new:
         sign_in: "ログイン"
-        sign_up: "アカウント登録"
+        sign_up: "アカウント登録はこちら"
         forgot_your_password: "パスワードを忘れた方はこちら"
     shared:
       links:

@@ -2,7 +2,7 @@
 <div class="flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 bg-[#FDFDFD]">
   <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-3xl shadow-lg border border-gray-100">
     <div class="text-center">
-      <h2 class="font-mplus text-3xl font-bold text-[#2C5159]">
+      <h2 class="font-mplus text-2xl md:text-3xl font-bold text-[#2C5159]">
         アカウント編集
       </h2>
     </div>
@@ -47,11 +47,11 @@
       </div>
 
       <div class="pt-4">
-        <%= f.submit t('.update'), class: "group relative w-full flex justify-center py-3 px-4 border border-transparent text-lg font-bold rounded-full text-[#2C5159] bg-[#F4D35E] hover:bg-[#F4D35E]/80 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F4D35E] shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-pointer font-mplus" %>
+        <%= f.submit t('.update'), class: "group relative w-full flex justify-center py-3 px-4 border border-transparent text-lg font-bold rounded-full text-[#2C5159]/90 bg-[#F4D35E]/80 hover:bg-[#F4D35E]/70 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#F4D35E] shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 cursor-pointer font-mplus" %>
       </div>
     <% end %>
     <div class="pt-2">
-      <%= link_to t('.back'), user_path(current_user), class: "hover:underline" %>
+      <%= link_to t('.back'), user_path(current_user), class: "text-[#2C5159]/90 hover:underline" %>
     </div>
   </div>
 </div>

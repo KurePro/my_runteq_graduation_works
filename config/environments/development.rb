@@ -75,4 +75,7 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   config.web_console.permissions = '192.168.65.1'
+
+  config.solid_queue.logger = ActiveSupport::Logger.new(STDOUT)
+  config.solid_queue.logger.level = Logger::WARN
 end

@@ -2,7 +2,7 @@
 <div class="flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 bg-[#FDFDFD]">
   <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-3xl shadow-lg border border-gray-100">
     <div class="text-center">
-      <h2 class="font-mplus text-3xl font-bold text-[#2C5159]">
+      <h2 class="font-mplus text-2xl md:text-3xl font-bold text-[#2C5159]">
         ログイン
       </h2>
     </div>
@@ -38,10 +38,15 @@
         <%= link_to t('.sign_up'), new_registration_path(resource_name), class: "text-[#2C5159] hover:text-[#6BAFB9] transition-colors" %>
       <% end %>
 
+<%
+=begin %>
       <% if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
         <span class="text-gray-400">／</span>
         <%= link_to t('.forgot_your_password'), new_password_path(resource_name), class: "text-[#2C5159] hover:text-[#6BAFB9] transition-colors" %>
       <% end %>
+<%
+=end %>
+
     </div>
   </div>
 </div>

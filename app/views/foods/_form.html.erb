@@ -1,30 +1,67 @@
-<%= form_with(model: food, local: true, class: "space-y-6") do |f| %>
+<%= form_with(model: food, local: true, class: "h-full") do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <div class="mb-4">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-  <div class="mb-4">
-    <%= f.label :category_id %>
-    <%= f.collection_select :category_id, @categories, :id, :name, prompt: "カテゴリー" %>
-  </div>
-  <div class="mb-4">
-    <%= f.label :expiry_date %>
-    <%= f.date_field :expiry_date %>
-  </div>
-  <div class="mb-4">
-    <%= f.label :quantity %>
-    <%= f.number_field :quantity, step: :any %>
-  </div>
-  <div class="mb-4">
-    <%= f.label :unit %>
-    <%= f.text_field :unit %>
-  </div>
-  <div class="mb-4">
-    <%= f.label :memo %>
-    <%= f.text_area :memo %>
-  </div>
-  <div class="mb-4">
-    <%= f.submit "登録" %>
+
+  <div id="food-<%= food.id %>" class="bg-[#FDFDFD]/90 rounded-2xl shadow-sm border border-gray-100 p-5 flex flex-col justify-between h-full hover:shadow-md transition-shadow duration-300 border-l-8 border-l-[#6BAFB9]/70 relative">
+    
+    <%# --- 上段：名前とカテゴリー --- %>
+    <div class="mb-4 space-y-3">
+      <%# 食材名 %>
+      <div>
+        <%= f.label :name, class: "block text-xs md:text-base font-bold text-gray-400 mb-1 ml-1" %>
+        <%= f.text_field :name, class: "w-full md:text-xl border-gray-200 rounded-lg focus:ring-2 focus:ring-[#6BAFB9]/50 focus:border-[#6BAFB9] text-[#2C5159] font-mplus font-bold placeholder-gray-300", placeholder: "食材名を入力" %>
+      </div>
+
+      <%# カテゴリー選択 %>
+      <div>
+        <%= f.label :category_id, class: "block text-xs md:text-base font-bold text-gray-400 mb-1 ml-1" %>
+        <div class="relative">
+          <%= f.collection_select :category_id, @categories, :id, :name, { prompt: "カテゴリーを選択" }, { class: "w-70 md:text-lg appearance-none border-gray-200 rounded-lg focus:ring-2 focus:ring-[#6BAFB9]/50 focus:border-[#6BAFB9] text-sm text-[#5E3030] bg-[#EE8D8D]/10 font-bold py-2 pl-3 pr-8" } %>
+          <%# セレクトボックスの右端の矢印アイコン（自作） %>
+          <div class="pointer-events-none absolute inset-y-0 right-0 md:left-60 flex items-center px-2 text-[#5E3030]">
+            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%# --- 中段：数量・単位・期限 --- %>
+    <div class="grid grid-cols-2 gap-3 mb-4">
+      <%# 数量と単位 %>
+      <div class="col-span-2 sm:col-span-1">
+        <label class="block text-xs md:text-base font-bold text-gray-400 mb-1 ml-1">Quantity</label>
+        <div class="flex items-center gap-2">
+          <%= f.number_field :quantity, step: :any, class: "w-20 md:text-xl border-gray-200 rounded-lg focus:ring-2 focus:ring-[#6BAFB9]/50 focus:border-[#6BAFB9] text-[#2C5159] font-montserrat font-bold text-center", placeholder: "0" %>
+          <%= f.text_field :unit, class: "w-35 md:text-lg border-gray-200 rounded-lg focus:ring-2 focus:ring-[#6BAFB9]/50 focus:border-[#6BAFB9] text-[#2C5159] font-mplus text-sm", placeholder: "個, g..." %>
+        </div>
+      </div>
+
+      <%# 賞味期限 %>
+      <div class="col-span-2 sm:col-span-1">
+        <%= f.label :expiry_date, class: "block text-xs md:text-base font-bold text-gray-400 mb-1 ml-1" %>
+        <div class="relative">
+          <%= f.date_field :expiry_date, class: "w-35 md:text-xl ml-1 border-gray-200 rounded-lg focus:ring-2 focus:ring-[#6BAFB9]/50 focus:border-[#6BAFB9] text-[#2C5159] font-montserrat text-sm py-2" %>
+        </div>
+      </div>
+    </div>
+
+    <%# --- 下段：メモ --- %>
+    <div class="mb-4">
+      <%= f.label :memo, class: "flex text-xs md:text-base font-bold text-gray-400 mb-1 ml-1" %>
+      <div class="relative">
+        <div class="absolute top-4 left-3 pointer-events-none">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5 text-[#FFA000]">
+            <path fill-rule="evenodd" d="M10 2c-1.716 0-3.408.106-5.07.31C3.806 2.45 3 3.414 3 4.517V17.25a.75.75 0 001.075.676L10 15.082l5.925 2.844A.75.75 0 0017 17.25V4.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 2z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="flex">
+          <%= f.text_area :memo, rows: 2, class: "w-full md:text-xl h-12 py-3 pl-8 border-[#FFE0B2] bg-[#FFF8E1]/50 rounded-lg focus:ring-2 focus:ring-[#FFA000]/30 focus:border-[#FFA000] text-sm text-[#2C5159] font-mplus placeholder-[#FFA000]/50", placeholder: "メモを入力..." %>
+        </div>
+      </div>
+    </div>
+
+    <%# --- ボタン --- %>
+    <div class="mt-auto mx-auto">
+      <%= f.submit "保存", class: "w-25 md:text-lg bg-[#2C5159]/90 hover:bg-[#2C5159]/80 text-[#FDFDFD]/90 font-bold py-2.5 rounded-full shadow-sm transition-colors cursor-pointer" %>
+    </div>
   </div>
 <% end %>

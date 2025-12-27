@@ -38,5 +38,5 @@ ja:
   notifications:
     index:
       title: "通知一覧"
-      no_notifications: "通知はありません。"
+      no_notifications: "新しい通知はありません。"
       clear_all: "全ての通知を削除"

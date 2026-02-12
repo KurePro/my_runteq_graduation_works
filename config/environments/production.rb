@@ -80,7 +80,7 @@ Rails.application.configure do
     password: ENV['BREVO_PASSWORD'],
     domain: 'my-runteq-graduation-works.onrender.com',
     address: 'smtp-relay.brevo.com',
-    port: 587,
+    port: 2525,
     authentication: :plain,
     enable_starttls_auto: true
   }

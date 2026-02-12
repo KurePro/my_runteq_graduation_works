@@ -51,9 +51,10 @@ ja:
         message: "ログイン失敗が繰り返されたため、アカウントはロックされています。"
     passwords:
       edit:
+        title: "パスワード変更"
         change_my_password: "パスワードを変更する"
         change_your_password: "パスワードを変更"
-        confirm_new_password: "確認用新しいパスワード"
+        confirm_new_password: "(確認用)新しいパスワード"
         new_password: "新しいパスワード"
       new:
         title: "パスワード再設定"
@@ -75,6 +76,7 @@ ja:
         back: "戻る"
         we_need_your_current_password_to_confirm_your_changes: "変更を反映するには現在のパスワードを入力してください"
       new:
+        title: "アカウント登録"
         sign_in_prefix: "アカウントをお持ちの方はこちら"
         sign_in_suffix: "（ログイン）"
         sign_up: "アカウント登録"

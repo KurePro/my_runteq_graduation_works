@@ -19,4 +19,7 @@ Rails.application.routes.draw do
   get "/privacy", to: "static_pages#privacy", as: "privacy"
   get "/contact", to: "static_pages#contact", as: "contact"
 
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 end

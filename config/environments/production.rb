@@ -76,7 +76,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    user_name: 'mochan.gntm1321@icloud.com',
+    user_name: 'a23df0001@smtp-brevo.com',
     password: ENV['BREVO_PASSWORD'],
     domain: 'my-runteq-graduation-works.onrender.com',
     address: 'smtp-relay.brevo.com',

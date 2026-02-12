@@ -72,13 +72,13 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  config.action_mailer.default_url_options = { host: 'https://my-runteq-graduation-works.onrender.com'}
+  config.action_mailer.default_url_options = { host: 'my-runteq-graduation-works.onrender.com', protocol: 'https' }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     user_name: 'mochan.gntm1321@icloud.com',
     password: ENV['BREVO_PASSWORD'],
-    domain: 'https://my-runteq-graduation-works.onrender.com',
+    domain: 'my-runteq-graduation-works.onrender.com',
     address: 'smtp-relay.brevo.com',
     port: 587,
     authentication: :plain,

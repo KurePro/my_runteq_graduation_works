@@ -29,7 +29,7 @@
         <div>
           <%= f.label :password, class: "block text-sm font-bold text-[#2C5159] mb-1" %>
           <% if @minimum_password_length %>
-            <span class="text-xs text-gray-500 font-normal ml-1">(<%= @minimum_password_length %>文字以上 / <%= t('.leave_blank_if_you_don_t_want_to_change_it') %>)</span>
+            <span class="text-xs text-gray-500 font-mplus ml-1">(<%= @minimum_password_length %>文字以上 / <%= t('.leave_blank_if_you_don_t_want_to_change_it') %>)</span>
           <% end %>
           <%= f.password_field :password, autocomplete: "new-password", placeholder: "••••••••", class: "appearance-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#6BAFB9] focus:border-[#6BAFB9] focus:z-10 sm:text-sm transition-all" %>
         </div>

@@ -1,16 +1,38 @@
-<h2>Forgot your password?</h2>
+<% content_for(:title, t('.title')) %>
+<div class="flex items-center justify-center py-8 px-4 sm:px-6 lg:px-8 bg-[#FDFDFD]">
+  <div class="max-w-md w-full space-y-8 bg-white p-10 rounded-3xl shadow-lg border border-gray-100">
+    <div class="text-center">
+      <h2 class="font-mplus text-2xl md:text-3xl font-bold text-[#2C5159]">
+        <%= t('.title') %>
+      </h2>
+      <p class="mt-2 text-xs text-gray-500 font-mplus">
+        <%= t('.send_reset_password_instructions') %>
+      </p>
+    </div>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "shared/error_messages", object: resource %>
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "mt-8 space-y-6" }) do |f| %>
+      <%= render "shared/error_messages", object: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <div class="field block">
+        <%= f.label :email, class: "block mb-2 text-sm font-bold text-[#2C5159]" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: t('.email_placeholder'), class: "appearance-none relative block w-full px-4 py-3 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#6BAFB9] focus:border-[#6BAFB9] focus:z-10 sm:text-sm transition-all" %>
+      </div>
+
+      <div class="actions flex justify-center items-center">
+        <%= f.submit t('.send_me_reset_password_instructions'), class: "px-4 py-2 bg-[#2C5159]/85 text-[#FDFDFD] font-mplus rounded-lg hover:bg-[#2C5159]/75" %>
+      </div>
+    <% end %>
+
+    <div class="flex items-center justify-center gap-2 text-sm font-mplus mt-4">
+      <% if devise_mapping.registerable? && controller_name != 'registrations' %>
+        <%= link_to t('.sign_up'), new_registration_path(resource_name), class: "text-[#2C5159] hover:text-[#6BAFB9] transition-colors" %>
+      <% end %>
+
+      <% if devise_mapping.recoverable? && controller_name != 'sessions' %>
+        <span class="text-gray-400">／</span>
+        <%= link_to t('.sign_in'), new_session_path(resource_name), class: "text-[#2C5159] hover:text-[#6BAFB9] transition-colors" %>
+      <% end %>
+
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

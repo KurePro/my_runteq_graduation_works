@@ -1,0 +1,29 @@
+<%# 検索ボックスにデータが入っている時のみ、検索ボックスを表示したままにする %>
+<div data-search-form-target="openSearchForm" class="<%= params[:foods_search_form].present? ? '' : 'hidden' %> mb-6 px-4">
+
+<%# foodsコントローラーで設定した、`foods_search_form` という箱の中に入っているデータだけをscopeで受け取る %>
+  <%= form_with model: search_form, scope: :foods_search_form, url: foods_path, method: :get, local: true, class: "flex flex-col md:flex-row md:space-x-4 gap-3 bg-[#FDFDFD]/90 p-4 rounded-xl shadow-sm border border-gray-200" do |f| %>
+    <%= f.text_field :search_keyword, placeholder: "食材やメモで検索...", class: "mx-3 px-4 md:px-30 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2C5159]/90 focus:border-transparent" %>
+
+    <div class="flex flex-row justify-center items-center md:space-x-4 gap-5 md:gap-3">
+      <%= f.collection_select :category_id, @categories, :id, :name, { include_blank: "カテゴリ" }, { class: "px-4 py-2 text-[#2C5159]/90 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2C5159]/90 focus:border-transparent" } %>
+
+      <%= f.select :expiry_status,[
+        ["賞味期限", ""], 
+        ["期限3日前", "expiry_3_days_notice"],
+        ["期限当日", "expiry_day_notice"],
+        ["期限切れ", "expired_notice"]],
+        {}, { class: "px-4 py-2 text-[#2C5159]/90 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#2C5159]/90 focus:border-transparent" }
+      %>
+    </div>
+
+    <div class="flex justify-center items-center space-x-5 md:ml-auto md:pr-5">
+      <%= f.submit "検索", class: "flex md:flex-none bg-[#2C5159]/90 text-[#FDFDFD] px-6 py-2 rounded-lg hover:bg-[#2C5159]/80 cursor-pointer" %>
+      <%= link_to foods_path, class: "flex items-center justify-center text-[#2C5159]/90 pr-8" do%>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+        </svg>
+      <% end %>
+    </div>
+  <% end %>
+</div>

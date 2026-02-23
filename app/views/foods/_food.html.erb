@@ -1,6 +1,6 @@
 <%# カード本体 %>
 <%# 左側のボーダー(border-l-8)で、今後ステータス色を表示できるように %>
-<div id="food-<%= food.id %>" class="bg-white rounded-2xl shadow-sm border border-gray-100 px-5 pt-4 pb-2 md:pt-5 md:pb-3 flex flex-col justify-between h-full hover:shadow-md transition-shadow duration-300 border-l-8 border-l-[#6BAFB9]/70">
+<div id="food-<%= food.id %>" class="bg-white rounded-2xl shadow-sm border border-gray-100 px-5 pt-4 pb-2 md:pt-5 md:pb-3 flex flex-col justify-between h-full hover:shadow-md transition-shadow duration-300 border-l-8 <%= food_card_color(food) %>">
   
   <div class="mb-2 md:mb-4">
     <%# 上段：食品名とカテゴリー %>

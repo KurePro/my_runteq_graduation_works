@@ -4,6 +4,12 @@
   --font-montserrat: "Montserrat", "M PLUS 1p", sans-serif;
   --font-mplus: "M PLUS 1p", sans-serif;
 
+  /* 食材カードの背景色（期限ごと） */
+  --color-default: #6BAFB9; /* デフォルト */
+  --color-expiry_3_days: #F59E0B; /* 期限3日前 */
+  --color-expiry_day: #EF4444; /* 期限当日 */
+  --color-expired: #6B7280; /* 期限切れ */
+
   /* フラッシュメッセージ（成功） */
   --color-success: #DFF5E1;
   --color-on-success: #2C5E3A;

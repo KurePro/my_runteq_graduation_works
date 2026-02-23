@@ -1,8 +1,9 @@
 class FoodsController < ApplicationController
-  before_action :set_categories, only: [:new, :create, :edit, :update]
+  before_action :set_categories, only: [:index, :new, :create, :edit, :update]
 
   def index
-    @foods = current_user.foods.includes(:category).order(expiry_date: :asc).page(params[:page]).per(12)
+    @search_form = FoodsSearchForm.new(search_params)
+    @foods = @search_form.search(current_user).order(expiry_date: :asc).page(params[:page]).per(12)
   end
 
   def new
@@ -45,5 +46,9 @@ class FoodsController < ApplicationController
 
   def set_categories
     @categories = Category.all
+  end
+
+  def search_params
+    params.fetch(:foods_search_form, {}).permit(:search_keyword, :category_id, :expiry_status)
   end
 end

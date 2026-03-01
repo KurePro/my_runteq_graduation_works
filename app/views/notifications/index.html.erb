@@ -1,49 +1,43 @@
 <% content_for(:title, t('.title')) %>
 <%= turbo_frame_tag "modal" do %>
 
-  <%# StimulusJS の data-action 属性の書き方↓
-    click->modal#hide → click したらmodalコントローラーのhide メソッド（関数）を実行
-    keydown.esc->modal#hide → keydown（キーボードを押した時）、Escキーだったらmodalコントローラーのhideメソッドを実行 %>
-  <div data-controller="modal" data-action="click->modal#hide keydown.esc->modal#hide" tabindex="-1">
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-[#2B2B2B]/50 backdrop-blur-xs
-          md:z-40 md:bg-[#2B2B2B]/50 md:backdrop-blur-xs">
+  <dialog data-controller="modal" 
+          data-action="close->modal#clear click->modal#clickOutside"
+          class="m-auto w-full max-w-xs md:max-w-xl bg-[#FDFDFD]/90 rounded-lg shadow-lg overflow-wrap p-0 backdrop:bg-[#2B2B2B]/50 backdrop:backdrop-blur-xs border-none">
 
-      <%# モーダル内をクリックしたときに親要素へのイベント伝播を止める %>
-      <div onclick="event.stopPropagation()"
-        class="max-w-xs md:max-w-xl w-full bg-[#FDFDFD]/90 rounded-lg shadow-lg overflow-wrap">
-
-        <div class="flex justify-end pt-4 pr-4">
-          <button type="button" data-action="click->modal#hide">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-[#2C5159] hover:opacity-50 transition-opacity">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-          </button>
-        </div>
-        <% if @notifications.present? %>
-          <div class="flex justify-end px-4 mt-2">
-            <%= button_to t('.clear_all'), destroy_all_notifications_path, method: :delete, class: "text-sm font-mplus text-[#2C5159] hover:underline" %>
-          </div>
-          <div class="space-y-4 p-6"><%# 子要素どうしの縦の間隔指定 %>
-            <%= render @notifications %>
-          </div>
-        <% else %>
-          <div class="p-10 flex flex-col items-center justify-center text-center space-y-3">
-            <div class="bg-[#6BAFB9]/10 p-4 rounded-full">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 md:size-12 text-[#6BAFB9]">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-              </svg>
-            </div>
-            <div>
-              <p class="font-mplus md:text-2xl font-bold text-[#2C5159]">
-                <%= t('.no_notifications') %>
-              </p>
-              <p class="text-xs md:text-xl text-[#2C5159]/70 mt-1">
-                新しいお知らせが届いたら<br>ここに表示されます
-              </p>
-            </div>
-          </div>
-        <% end %>
+    <div class="relative w-full">
+      <div class="flex justify-end pt-4 pr-4">
+        <button type="button" data-action="click->modal#close">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-[#2C5159] hover:opacity-50 transition-opacity">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+        </button>
       </div>
+      <% if @notifications.present? %>
+        <div class="flex justify-end px-4 mt-2">
+          <%= button_to t('.clear_all'), destroy_all_notifications_path, method: :delete,
+              class: "text-sm font-mplus text-[#2C5159] hover:underline" %>
+        </div>
+        <div class="space-y-4 p-6">
+          <%= render @notifications %>
+        </div>
+      <% else %>
+        <div class="p-10 flex flex-col items-center justify-center text-center space-y-3">
+          <div class="bg-[#6BAFB9]/10 p-4 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8 md:size-12 text-[#6BAFB9]">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+            </svg>
+          </div>
+          <div>
+            <p class="font-mplus md:text-2xl font-bold text-[#2C5159]">
+              <%= t('.no_notifications') %>
+            </p>
+            <p class="text-xs md:text-xl text-[#2C5159]/70 mt-1">
+              新しいお知らせが届いたら<br>ここに表示されます
+            </p>
+          </div>
+        </div>
+      <% end %>
     </div>
-  </div>
+  </dialog>
 <% end %>

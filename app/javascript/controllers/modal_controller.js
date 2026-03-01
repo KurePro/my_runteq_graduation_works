@@ -1,21 +1,27 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="modal"
 export default class extends Controller {
   connect() {
-    this.element.focus()
-  }
-  hide(event) {
-    event.preventDefault();
-
-    this.element.remove();
+    this.element.showModal();
   }
 
-  disconnect() {
+  close(event) {
+    if (event) event.preventDefault();
+    
+    this.element.close(); 
+  }
+
+  clickOutside(event) {
+    if (event.target === this.element) {
+      this.close();
+    }
+  }
+
+  clear() {
     this.#modalTurboFrame.src = null;
+    this.#modalTurboFrame.innerHTML = "";
   }
 
-  // private: 親のturbo-frameを探す便利メソッド?
   get #modalTurboFrame() {
     return document.querySelector("turbo-frame[id='modal']");
   }

@@ -1,0 +1,13 @@
+<%= turbo_stream.prepend "shopping_items_list" do %>
+  <%= render @shopping_item %>
+<% end %>
+
+<%# 追加が終わったら、入力フォームの中身をリセットする %>
+<%= turbo_stream.replace "new_shopping_item_form" do %>
+  <%= form_with model: ShoppingItem.new, id: "new_shopping_item_form", class: "flex items-center space-x-4" do |f| %>
+    <div class="flex-1">
+      <%= f.text_field :name, placeholder: "何を買いますか？", required: true, class: "w-full rounded-lg border-gray-300 focus:ring-[#2C5159] focus:border-[#2C5159]" %>
+    </div>
+    <%= f.submit "追加", class: "bg-[#2C5159] text-white px-6 py-2 rounded-lg hover:bg-[#2C5159]/80 cursor-pointer whitespace-nowrap" %>
+  <% end %>
+<% end %>

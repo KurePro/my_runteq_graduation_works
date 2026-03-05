@@ -41,6 +41,13 @@ ja:
       title: "通知一覧"
       no_notifications: "新しい通知はありません。"
       clear_all: "全ての通知を削除"
+  shopping_items:
+    index:
+      title: "買い物リスト"
+      no_shopping_items: "買い物リストに登録されていません。"
+      no_search_results_html: "検索条件に一致する食材が<br>見つかりませんでした。"
+      add_shopping_item: "追加する"
+      are_you_sure: "本当にこの項目を削除しますか？"
   pagination:
     first: "&laquo;"
     last: "&raquo;"

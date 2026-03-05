@@ -8,12 +8,33 @@ class FoodsController < ApplicationController
 
   def new
     @food = Food.new
+
+    if params[:shopping_item_id].present?
+      @shopping_item = current_user.shopping_items.find(params[:shopping_item_id])
+      @food.name = @shopping_item.name
+      @food.memo = @shopping_item.memo
+      @shopping_item_id = @shopping_item.id
+    end
   end
 
   def create
     @food = current_user.foods.build(food_params)
+    @shopping_item_id = params[:shopping_item_id]
+
     if @food.save
-      redirect_to foods_path
+      if @shopping_item_id.present?
+        @shopping_item = current_user.shopping_items.find(@shopping_item_id)
+        @shopping_item.update(is_bought: true)
+
+        respond_to do |format|
+          format.turbo_stream { render :create_from_shopping_item }
+          format.html { redirect_to shopping_items_path, notice: '食材を登録しました' }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to foods_path, notice: '食材を登録しました' }
+        end
+      end
     else
       render :new, status: :unprocessable_entity
     end

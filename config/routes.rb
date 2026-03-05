@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       delete :destroy_all
     end
   end
+  resources :shopping_items
 
   get "/terms", to: "static_pages#terms", as: "terms"
   get "/privacy", to: "static_pages#privacy", as: "privacy"

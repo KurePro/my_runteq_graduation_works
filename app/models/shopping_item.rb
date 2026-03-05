@@ -1,5 +1,6 @@
 class ShoppingItem < ApplicationRecord
-  belongs_to :user, presence: true
+  validates :name, presence: true, length: { maximum: 255 }
+  validates :memo, length: { maximum: 255 }
 
-  validates :name, presence: true
+  belongs_to :user
 end

@@ -2,7 +2,10 @@
   <%= render 'shared/error_messages', object: f.object %>
 
   <div id="food-<%= food.id %>" class="bg-[#FDFDFD]/90 rounded-2xl shadow-sm border border-gray-100 p-5 flex flex-col justify-between h-full hover:shadow-md transition-shadow duration-300 border-l-8 border-l-[#6BAFB9]/70 relative">
-    
+  <%# 引っ越し元がある場合のみ、IDを隠して送信する %>
+  <% if @shopping_item_id.present? %>
+    <%= hidden_field_tag :shopping_item_id, @shopping_item_id %>
+  <% end %>
     <%# --- 上段：名前とカテゴリー --- %>
     <div class="mb-4 space-y-3">
       <%# 食材名 %>
@@ -15,9 +18,9 @@
       <div>
         <%= f.label :category_id, class: "block text-xs md:text-base font-bold text-gray-400 mb-1 ml-1" %>
         <div class="relative">
-          <%= f.collection_select :category_id, @categories, :id, :name, { prompt: "カテゴリーを選択" }, { class: "w-70 md:text-lg appearance-none border-gray-200 rounded-lg focus:ring-2 focus:ring-[#6BAFB9]/50 focus:border-[#6BAFB9] text-sm text-[#5E3030] bg-[#EE8D8D]/10 font-bold py-2 pl-3 pr-8" } %>
+          <%= f.collection_select :category_id, @categories, :id, :name, { prompt: "カテゴリーを選択" }, { class: "w-full md:text-lg appearance-none border-gray-200 rounded-lg focus:ring-2 focus:ring-[#6BAFB9]/50 focus:border-[#6BAFB9] text-sm text-[#5E3030] bg-[#EE8D8D]/10 font-bold py-2 pl-3 pr-8" } %>
           <%# セレクトボックスの右端の矢印アイコン（自作） %>
-          <div class="pointer-events-none absolute inset-y-0 right-0 md:left-60 flex items-center px-2 text-[#5E3030]">
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-[#5E3030]">
             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
           </div>
         </div>

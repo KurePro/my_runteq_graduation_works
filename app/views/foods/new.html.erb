@@ -1,7 +1,33 @@
 <% content_for(:title, t('.title')) %>
-<div class="flex max-w-7xl w-full justify-center items-center mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#FDFDFD]/90">
-  <%= render 'form', food: @food, categories: @categories %>
-</div>
-<div class="text-center mt-6">
-  <%= link_to "一覧に戻る", foods_path, class: "text-[#2C5159] hover:text-[#6BAFB9] text-sm underline decoration-gray-300 hover:decoration-[#6BAFB9] transition-all" %>
-</div>
+
+<% if @shopping_item_id.present? %>
+  <%# 買い物リストからの引っ越し（モーダル） %>
+  <%= turbo_frame_tag "modal" do %>
+    <dialog data-controller="modal" 
+            data-action="close->modal#clear click->modal#clickOutside"
+            class="m-auto w-full max-w-xs md:max-w-xl bg-[#FDFDFD]/90 rounded-lg shadow-lg overflow-wrap p-6 backdrop:bg-[#2B2B2B]/50 backdrop:backdrop-blur-xs border-none">
+      
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold text-[#2C5159]">買った食材を登録</h2>
+        <button type="button" data-action="click->modal#close">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-[#2C5159] hover:opacity-50 transition-opacity">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <%= render 'form', food: @food, categories: @categories %>
+
+    </dialog>
+  <% end %>
+
+<% else %>
+  <%# 通常の食材登録 %>
+  <% content_for(:title, t('.title')) %>
+  <div class="flex max-w-7xl w-full justify-center items-center mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#FDFDFD]/90">
+    <%= render 'form', food: @food, categories: @categories %>
+  </div>
+  <div class="text-center mt-6">
+    <%= link_to "一覧に戻る", foods_path, class: "text-[#2C5159] hover:text-[#6BAFB9] text-sm underline decoration-gray-300 hover:decoration-[#6BAFB9] transition-all" %>
+  </div>
+<% end %>

@@ -1,1 +1,5 @@
 <%= turbo_stream.remove @shopping_item %>
+
+<%= turbo_stream.update "flash" do %>
+  <%= render 'shared/flash_messages' %>
+<% end %>

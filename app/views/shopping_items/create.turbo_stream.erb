@@ -4,6 +4,10 @@
 
 <%= turbo_stream.remove "empty_state" %>
 
+<%= turbo_stream.update "flash" do %>
+  <%= render 'shared/flash_messages' %>
+<% end %>
+
 <%# 追加が終わったら、入力フォームの中身をリセットする %>
 <%= turbo_stream.replace "new_shopping_item_form" do %>
   <%= form_with model: ShoppingItem.new, id: "new_shopping_item_form", class: "flex items-center space-x-4" do |f| %>

@@ -23,7 +23,9 @@
     <% else %>
       <%= render 'devise/shared/before_login_header' %>
     <% end %>
-    <%= render 'shared/flash_message' %>
+    <div id="flash">
+      <%= render 'shared/flash_messages' %>
+    </div>
     <%= turbo_frame_tag :modal %>
     <main class="flex-1">
       <%= yield %>

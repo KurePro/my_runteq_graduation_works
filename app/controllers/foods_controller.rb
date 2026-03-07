@@ -24,7 +24,9 @@ class FoodsController < ApplicationController
     if @food.save
       if @shopping_item_id.present?
         @shopping_item = current_user.shopping_items.find(@shopping_item_id)
-        @shopping_item.update(is_bought: true)
+        @shopping_item.destroy
+
+        flash.now[:notice] = '買い物リストから食材を登録しました。'
 
         respond_to do |format|
           format.turbo_stream { render :create_from_shopping_item }
@@ -47,7 +49,7 @@ class FoodsController < ApplicationController
   def update
     @food = current_user.foods.find(params[:id])
     if @food.update(food_params)
-      redirect_to foods_path
+      redirect_to foods_path, notice: "食材を更新しました。"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -56,7 +58,7 @@ class FoodsController < ApplicationController
   def destroy
     food = current_user.foods.find(params[:id])
     food.destroy
-    redirect_to foods_path, status: :see_other
+    redirect_to foods_path, notice: "食材を削除しました。", status: :see_other
   end
 
   private

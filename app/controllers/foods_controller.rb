@@ -21,23 +21,32 @@ class FoodsController < ApplicationController
     @food = current_user.foods.build(food_params)
     @shopping_item_id = params[:shopping_item_id]
 
-    if @food.save
-      if @shopping_item_id.present?
-        @shopping_item = current_user.shopping_items.find(@shopping_item_id)
-        @shopping_item.destroy
-
-        flash.now[:notice] = '買い物リストから食材を登録しました。'
-
-        respond_to do |format|
-          format.turbo_stream { render :create_from_shopping_item }
-          format.html { redirect_to shopping_items_path, notice: '食材を登録しました' }
-        end
-      else
-        respond_to do |format|
-          format.html { redirect_to foods_path, notice: '食材を登録しました' }
+    Food.transaction do
+      if @food.save
+        if @shopping_item_id.present?
+          @shopping_item = current_user.shopping_items.find(@shopping_item_id)
+          @shopping_item.destroy!
         end
       end
+    end
+
+    if @shopping_item_id.present?
+      flash.now[:notice] = '買い物リストから食材を登録しました。'
+      respond_to do |format|
+        format.turbo_stream { render :create_from_shopping_item }
+        format.html { redirect_to shopping_items_path, notice: '食材を登録しました', status: :see_other }
+      end
     else
+      respond_to do |format|
+        format.html { redirect_to foods_path, notice: '食材を登録しました', status: :see_other }
+      end
+    end
+
+    rescue ActiveRecord::RecordInvalid => e
+      render :new, status: :unprocessable_entity
+
+    rescue StandardError => e
+      flash.now[:alert] = '処理中にエラーが発生しました。もう一度お試しください。'
       render :new, status: :unprocessable_entity
     end
   end

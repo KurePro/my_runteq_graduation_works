@@ -20,4 +20,4 @@ production:
 
   guest_cleanup:
     class: GuestCleanupJob
-    schedule: every 1.day at 0:00 am
+    schedule: "0 0 * * *"

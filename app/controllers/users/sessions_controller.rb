@@ -2,7 +2,7 @@ class Users::SessionsController < Devise::SessionsController
   skip_before_action :authenticate_user!, only: [:guest_sign_in]
 
   def guest_sign_in
-    user = User.guest
+    user = User.create_guest!
     sign_in user
     redirect_to foods_path, notice: 'ゲストユーザーとしてログインしました。'
   end

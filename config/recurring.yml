@@ -17,3 +17,7 @@ production:
   daily_expiry_notification:
     class: NotificationJob
     schedule: "0 9 * * *"
+
+  guest_cleanup:
+    class: GuestCleanupJob
+    schedule: every 1.day at 0:00 am

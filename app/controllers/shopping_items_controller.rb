@@ -8,6 +8,9 @@ class ShoppingItemsController < ApplicationController
   def create
     @shopping_item = current_user.shopping_items.build(shopping_item_params)
     if @shopping_item.save
+
+      flash.now[:notice] = "買い物リストに追加しました。"
+
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to shopping_items_path, notice: "買い物リストに追加しました。" }
@@ -21,6 +24,8 @@ class ShoppingItemsController < ApplicationController
   def destroy
     @shopping_item = current_user.shopping_items.find(params[:id])
     @shopping_item.destroy
+
+    flash.now[:notice] = "買い物リストから削除しました。"
 
     respond_to do |format|
       format.turbo_stream

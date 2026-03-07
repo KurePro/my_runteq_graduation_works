@@ -8,11 +8,14 @@
 
   <%# --- ここにインラインフォームを追加 --- %>
   <div class="font-montserrat mb-8 bg-[#FDFDFD]/90 px-4 py-1 my-2 rounded-xl shadow-sm border border-gray-200">
-    <%= form_with model: @shopping_item, id: "new_shopping_item_form", class: "flex items-center space-x-4" do |f| %>
-      <div class="flex-1">
-        <%= f.text_field :name, placeholder: "何を買いますか？", required: true, class: "w-full text-lg md:text-xl font-bold border-gray-300 focus:ring-[#2C5159] focus:border-[#2C5159]" %>
+    <%= form_with model: @shopping_item, id: "new_shopping_item_form" do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="flex items-center space-x-4">
+        <div class="flex-1">
+          <%= f.text_field :name, placeholder: "何を買いますか？", required: true, class: "w-full text-lg md:text-xl font-bold border-gray-300 focus:ring-[#2C5159] focus:border-[#2C5159]" %>
+        </div>
+        <%= f.submit "追加", class: "bg-[#2C5159] text-white px-6 py-2 rounded-lg hover:bg-[#2C5159]/80 cursor-pointer whitespace-nowrap" %>
       </div>
-      <%= f.submit "追加", class: "bg-[#2C5159] text-white px-6 py-2 rounded-lg hover:bg-[#2C5159]/80 cursor-pointer whitespace-nowrap" %>
     <% end %>
   </div>
 
@@ -23,7 +26,7 @@
       <% end %>
     </div>
 
-    <% if current_user.shopping_items.empty? %>
+    <% if @shopping_items.empty? %>
       <div id="empty_state" class="text-center py-20 bg-white rounded-3xl border-2 border-dashed border-gray-200">
         <p class="font-bold font-mplus text-[#2C5159]">
           <%= t('.no_shopping_items') %>
@@ -34,8 +37,5 @@
     <div class="flex justify-center">
       <%= paginate @shopping_items %>
     </div>
-  </div>
-  <div class="flex justify-center">
-    <%= paginate @shopping_items %>
   </div>
 </div>

@@ -6,6 +6,6 @@ class NotificationsController < ApplicationController
 
   def destroy_all
     current_user.notifications.destroy_all
-    redirect_to notifications_path, status: :see_other
+    redirect_to notifications_path, notice: "通知を削除しました。", status: :see_other
   end
 end

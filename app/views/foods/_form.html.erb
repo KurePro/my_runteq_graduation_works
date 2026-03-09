@@ -1,7 +1,7 @@
-<%= form_with(model: food, local: true, class: "h-full") do |f| %>
+<%= form_with(model: food, local: true) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
-  <div id="food-<%= food.id %>" class="bg-[#FDFDFD]/90 rounded-2xl shadow-sm border border-gray-100 p-5 flex flex-col justify-between h-full hover:shadow-md transition-shadow duration-300 border-l-8 border-l-[#6BAFB9]/70 relative">
+  <div id="food-<%= food.id %>" class="bg-[#FDFDFD]/90 rounded-2xl shadow-sm border border-gray-100 p-5 flex flex-col justify-between hover:shadow-md transition-shadow duration-300 border-l-8 border-l-[#6BAFB9]/70 relative">
   <%# 引っ越し元がある場合のみ、IDを隠して送信する %>
   <% if @shopping_item_id.present? %>
     <%= hidden_field_tag :shopping_item_id, @shopping_item_id %>

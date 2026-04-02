@@ -23,12 +23,11 @@ class FoodsController < ApplicationController
 
     begin
       Food.transaction do
-        if @food.save!
+        @food.save!
           if @shopping_item_id.present?
             @shopping_item = current_user.shopping_items.find(@shopping_item_id)
             @shopping_item.destroy!
           end
-        end
       end
 
       if @shopping_item_id.present?

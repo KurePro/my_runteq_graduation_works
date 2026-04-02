@@ -65,7 +65,7 @@ class User < ApplicationRecord
     100.times.map do
       template = SAMPLE_FOOD_TEMPLATES.sample
       category = categories[template[:category_name]]
-      has_expiry = rand < 0.8
+      has_expiry = rand < 0.4
       has_detail = rand < 0.5
       expiry_date = has_expiry ? rand(-3..14).days.from_now(now).to_date : nil
 

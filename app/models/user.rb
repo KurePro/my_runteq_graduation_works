@@ -1,4 +1,23 @@
 class User < ApplicationRecord
+  SAMPLE_CATEGORY_NAMES = %w[肉類 野菜 魚介類 乳製品 卵 果物 飲料 その他].freeze
+  SAMPLE_FOOD_TEMPLATES = [
+    { name: '豚肉', category_name: '肉類', unit: 'g' },
+    { name: '鶏肉', category_name: '肉類', unit: 'g' },
+    { name: 'キャベツ', category_name: '野菜', unit: '玉' },
+    { name: 'トマト', category_name: '野菜', unit: '個' },
+    { name: 'マグロ', category_name: '魚介類', unit: '柵' },
+    { name: 'サーモン', category_name: '魚介類', unit: 'パック' },
+    { name: '牛乳', category_name: '乳製品', unit: '本' },
+    { name: 'ヨーグルト', category_name: '乳製品', unit: '個' },
+    { name: '卵', category_name: '卵', unit: '個' },
+    { name: 'リンゴ', category_name: '果物', unit: '個' },
+    { name: 'バナナ', category_name: '果物', unit: '本' },
+    { name: 'ジュース', category_name: '飲料', unit: '本' },
+    { name: 'アイス', category_name: 'その他', unit: '個' }
+  ].freeze
+
+  SAMPLE_SHOPPING_ITEMS = ['牛乳', 'トマト', 'ヨーグルト'].freeze
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -11,7 +30,7 @@ class User < ApplicationRecord
   has_many :shopping_items, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
-def self.create_guest!
+  def self.create_guest!
     random_email = "guest_#{SecureRandom.hex(4)}@example.com"
 
     guest_user = create!(
@@ -26,145 +45,69 @@ def self.create_guest!
   end
 
   def setup_sample_data!
-    category_meat = Category.find_by(name: '肉類')
-    category_veg  = Category.find_by(name: '野菜')
-    category_fish = Category.find_by(name: '魚介類')
-    category_milk = Category.find_by(name: '乳製品')
-    category_egg  = Category.find_by(name: '卵')
-    category_fruit = Category.find_by(name: '果物')
-    category_drink = Category.find_by(name: '飲料')
-    category_other = Category.find_by(name: 'その他')
+    now = Time.current
+    categories = sample_categories
 
-    food1 = self.foods.create!(
-      name: '豚肉',
-      category_id: category_meat&.id,
-      expiry_date: Date.yesterday,
-      quantity: 200,
-      unit: 'g',
-      memo: '特売で買った豚肉'
-    )
+    Food.insert_all(build_foods_data(categories, now))
+    ShoppingItem.insert_all(build_shopping_items_data(now))
 
-    food2 = self.foods.create!(
-      name: 'キャベツ',
-      category_id: category_veg&.id,
-      expiry_date: Date.today,
-      quantity: 1,
-      unit: '玉',
-    )
+    notifications_data = build_notifications_data(now)
+    Notification.insert_all(notifications_data) if notifications_data.present?
+  end
 
-    food3 = self.foods.create!(
-      name: 'マグロ',
-      category_id: category_fish&.id,
-      expiry_date: 3.days.from_now,
-    )
+  private
 
-    food4 = self.foods.create!(
-      name: '卵',
-      category_id: category_egg&.id,
-      expiry_date: 1.week.from_now,
-      quantity: 8,
-      unit: '個',
-    )
+  def sample_categories
+    Category.where(name: SAMPLE_CATEGORY_NAMES).index_by(&:name)
+  end
 
-    food5 = self.foods.create!(
-      name: '牛乳',
-      category_id: category_milk&.id,
-      expiry_date: 5.days.from_now,
-      memo: '朝食用の牛乳'
-    )
+  def build_foods_data(categories, now)
+    100.times.map do
+      template = SAMPLE_FOOD_TEMPLATES.sample
+      category = categories[template[:category_name]]
+      has_expiry = rand < 0.8
+      has_detail = rand < 0.5
+      expiry_date = has_expiry ? rand(-3..14).days.from_now(now).to_date : nil
 
-    food6 = self.foods.create!(
-      name: 'リンゴ',
-      category_id: category_fruit&.id,
-      expiry_date: 1.week.from_now,
-      quantity: 4,
-    )
+      {
+        user_id: id,
+        name: template[:name],
+        category_id: category&.id,
+        expiry_date: expiry_date,
+        quantity: has_detail ? rand(1..5) * 1 : nil,
+        unit: has_detail ? template[:unit] : nil,
+        memo: has_detail ? "サンプルのメモ（#{template[:name]}）" : nil,
+        created_at: now,
+        updated_at: now
+      }
+    end
+  end
 
-    food7 = self.foods.create!(
-      name: 'ジュース',
-      category_id: category_drink&.id,
-      expiry_date: 1.month.from_now,
-      memo: 'ご褒美ジュース'
-    )
+  def build_shopping_items_data(now)
+    SAMPLE_SHOPPING_ITEMS.map do |name|
+      { user_id: id, name: name, is_bought: false, created_at: now, updated_at: now }
+    end
+  end
 
-    food8 = self.foods.create!(
-      name: 'アイス',
-      category_id: category_other&.id,
-    )
+  def build_notifications_data(now)
+    target_foods = foods.where('expiry_date <= ?', 3.days.from_now.to_date).limit(10)
 
-    food9 = self.foods.create!(
-      name: '鶏肉',
-      category_id: category_meat&.id,
-      expiry_date: 2.days.from_now,
-    )
+    target_foods.map do |food|
+      {
+        user_id: id,
+        food_id: food.id,
+        message: notification_message_for(food),
+        checked: false,
+        created_at: now,
+        updated_at: now
+      }
+    end
+  end
 
-    food10 = self.foods.create!(
-      name: 'トマト',
-      category_id: category_veg&.id,
-      expiry_date: 4.days.from_now,
-    )
+  def notification_message_for(food)
+    return "#{food.name}の消費期限が過ぎています。" if food.expiry_date < Date.current
+    return "#{food.name}の消費期限が今日までです。" if food.expiry_date == Date.current
 
-    food11 = self.foods.create!(
-      name: 'サーモン',
-      category_id: category_fish&.id,
-      expiry_date: 2.days.from_now,
-    )
-
-    food12 = self.foods.create!(
-      name: 'ヨーグルト',
-      category_id: category_milk&.id,
-      expiry_date: 1.week.from_now,
-    )
-
-    food13 = self.foods.create!(
-      name: 'バナナ',
-      category_id: category_fruit&.id,
-      expiry_date: 5.days.from_now,
-    )
-
-    shopping_item1 = self.shopping_items.create!(
-      name: '牛乳',
-      is_bought: false
-    )
-
-    shopping_item2 = self.shopping_items.create!(
-      name: 'トマト',
-      is_bought: false
-    )
-
-    shopping_item3 = self.shopping_items.create!(
-      name: 'ヨーグルト',
-      is_bought: false
-    )
-
-    notification1 = self.notifications.create!(
-      food_id: food1.id,
-      message: '豚肉の消費期限が過ぎています。',
-      checked: false
-    )
-
-    notification2 = self.notifications.create!(
-      food_id: food2.id,
-      message: 'キャベツの消費期限が今日までです。',
-      checked: false
-    )
-
-    notification3 = self.notifications.create!(
-      food_id: food3.id,
-      message: 'マグロの消費期限が3日後です。',
-      checked: false
-    )
-
-    notification4 = self.notifications.create!(
-      food_id: food9.id,
-      message: '鶏肉の消費期限が3日後です。',
-      checked: false
-    )
-
-    notification5 = self.notifications.create!(
-      food_id: food11.id,
-      message: 'サーモンの消費期限が3日後です。',
-      checked: false
-    )
+    "#{food.name}の消費期限が#{(food.expiry_date - Date.current).to_i}日後です。"
   end
 end

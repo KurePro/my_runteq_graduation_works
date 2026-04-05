@@ -34,9 +34,10 @@ export default class extends Controller {
           type: "LiveStream",
           target: this.cameraTarget,
           constraints: {
-            width:  { min: 640 },
-            height: { min: 480 },
-            facingMode: "environment", // 背面カメラ
+            width:  { ideal: 1280 },
+            height: { ideal: 720 },
+            aspectRatio: { ideal: 1.0 },  // 正方形に近づける
+            facingMode: "environment",
           },
         },
         locator: { patchSize: "medium", halfSample: true },

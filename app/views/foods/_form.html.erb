@@ -14,8 +14,8 @@
 
         <%# カメラ映像エリア（スキャン中のみ表示） %>
         <div data-barcode-scanner-target="camera"
-          style="display: none;"
-          class="w-full rounded-lg overflow-hidden bg-black mb-2">
+            style="display: none;"
+            class="w-full rounded-lg overflow-hidden bg-black mb-2 max-h-64 [&_video]:w-full [&_video]:h-full [&_video]:object-cover [&_canvas]:hidden">
         </div>
 
         <%= f.text_field :name,

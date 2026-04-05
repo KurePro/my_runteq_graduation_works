@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["camera", "result", "foodName", "startBtn", "stopBtn", "status"]
+  static targets = ["camera", "foodName", "startBtn", "stopBtn", "status"]
 
   connect() {
     this.scanning = false
@@ -84,7 +84,7 @@ export default class extends Controller {
     this.detected = true
     this.#stopScanner()
     this.resultTarget.textContent = code
-    this.#setStatus("success", `JANコード: ${code} を読み取りました`)
+    this.#setStatus("success", `読み取り成功しました。`)
     this.#resetButtons()
 
     this.#fetchProductInfo(code)
@@ -104,13 +104,13 @@ export default class extends Controller {
 
       if (data.name) {
         this.foodNameTarget.value = data.name
-        this.#setStatus("success", `「${data.name}」を入力しました。内容を確認してください`)
+        this.#setStatus("success", `「${data.name}」を入力しました。内容を確認してください。`)
       } else {
-        this.#setStatus("warn", "商品情報が見つかりませんでした。手動で入力してください")
+        this.#setStatus("warn", "商品情報が見つかりませんでした。手動で入力してください。")
       }
     } catch (e) {
       console.error(e)
-      this.#setStatus("error", "商品情報の取得に失敗しました。手動で入力してください")
+      this.#setStatus("error", "商品情報の取得に失敗しました。手動で入力してください。")
     }
   }
 

@@ -8,7 +8,13 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:show]
-  resources :foods
+
+  resources :foods do
+    collection do
+      get :search_by_barcode
+    end
+  end
+
   resources :notifications, only: [:index] do
     collection do
       delete :destroy_all

@@ -1,4 +1,4 @@
-FROM ruby:3.3
+FROM ruby:3.3.10
 
 # 必要ツールをまとめてインストール（nodejsを削除）
 RUN apt-get update -qq && apt-get install -y \

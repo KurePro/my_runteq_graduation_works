@@ -70,7 +70,51 @@ class FoodsController < ApplicationController
     redirect_to foods_path, notice: "食材を削除しました。", status: :see_other
   end
 
+  def search_by_barcode
+    jan_code = params[:jan_code].to_s.strip
+
+    # バリデーション（JANコードは 8 桁 or 13 桁の数字）
+    unless jan_code.match?(/\A\d{8}(\d{5})?\z/)
+      render json: { error: "無効なJANコードです" }, status: :unprocessable_entity
+      return
+    end
+
+    product_name = fetch_product_name_from_yahoo(jan_code)
+
+    if product_name
+      render json: { name: product_name }
+    else
+      render json: { name: nil, message: "商品が見つかりませんでした" }
+    end
+  end
+
   private
+
+  def fetch_product_name_from_yahoo(jan_code)
+    conn = Faraday.new("https://shopping.yahooapis.jp") do |f|
+      f.options.timeout = 5
+      f.options.open_timeout = 3
+    end
+
+    response = conn.get("/ShoppingWebService/V3/itemSearch", {
+      appid:    ENV.fetch("YAHOO_CLIENT_ID"),
+      jan_code: jan_code,
+      results:  1
+    })
+
+    return nil unless response.success?
+
+    data = JSON.parse(response.body)
+    hits = data.dig("hits") || []
+    return nil if hits.empty?
+
+    raw_name = hits.first.dig("name").to_s
+    raw_name.split(/[【\[（(]/)[0].strip.presence
+
+rescue Faraday::Error => e
+  Rails.logger.error "Yahoo API Error: #{e.message}"
+  nil
+end
 
   def food_params
     params.require(:food).permit(:name, :quantity, :unit, :expiry_date, :memo, :status, :category_id)

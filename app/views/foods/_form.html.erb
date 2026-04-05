@@ -11,7 +11,16 @@
       <%# 食材名 %>
       <div>
         <%= f.label :name, class: "block text-xs md:text-base font-bold text-gray-400 mb-1 ml-1" %>
-        <%= f.text_field :name, class: "w-full md:text-xl border-gray-200 rounded-lg focus:ring-2 focus:ring-[#6BAFB9]/50 focus:border-[#6BAFB9] text-[#2C5159] font-mplus font-bold placeholder-gray-300", placeholder: "食材名を入力" %>
+
+        <%# カメラ映像エリア（スキャン中のみ表示） %>
+        <div data-barcode-scanner-target="camera"
+          style="display: none;"
+          class="w-full rounded-lg overflow-hidden bg-black mb-2">
+        </div>
+
+        <%= f.text_field :name,
+        data: { barcode_scanner_target: "foodName" },
+        class: "w-full md:text-xl border-gray-200 rounded-lg focus:ring-2 focus:ring-[#6BAFB9]/50 focus:border-[#6BAFB9] text-[#2C5159] font-mplus font-bold placeholder-gray-300", placeholder: "食材名を入力" %>
       </div>
 
       <%# カテゴリー選択 %>

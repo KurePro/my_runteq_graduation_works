@@ -1,12 +1,11 @@
 <% content_for(:title, t('.title')) %>
 
 <% if @shopping_item_id.present? %>
-  <%# 買い物リストからの引っ越し（モーダル） %>
+  <%# 買い物リストからの引っ越し（モーダル） - バーコード機能なし %>
   <%= turbo_frame_tag "modal" do %>
-    <dialog data-controller="modal" 
+    <dialog data-controller="modal"
             data-action="close->modal#clear click->modal#clickOutside"
             class="m-auto w-full max-w-xs md:max-w-xl bg-[#FDFDFD]/90 rounded-lg shadow-lg overflow-wrap p-6 backdrop:bg-[#2B2B2B]/50 backdrop:backdrop-blur-xs border-none">
-      
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-bold text-[#2C5159]">買った食材を登録</h2>
         <button type="button" data-action="click->modal#close">
@@ -15,18 +14,63 @@
           </svg>
         </button>
       </div>
-
       <%= render 'form', food: @food, categories: @categories %>
-
     </dialog>
   <% end %>
 
 <% else %>
-  <%# 通常の食材登録 %>
+  <%# 通常の食材登録 - バーコードスキャン機能あり %>
   <% content_for(:title, t('.title')) %>
-  <div class="flex max-w-7xl w-full justify-center items-center mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#FDFDFD]/90">
-    <%= render 'form', food: @food, categories: @categories %>
+
+  <%# Stimulusのルート要素 %>
+  <div data-controller="barcode-scanner"
+       class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-[#FDFDFD]/90">
+
+    <%# ── ボタンエリア（max-w-7xl 内・右寄せ） ── %>
+    <div class="flex justify-end max-w-xs md:max-w-xl mx-auto mb-2">
+
+      <%# 開始ボタン（初期表示） %>
+      <button type="button"
+              data-action="click->barcode-scanner#start"
+              data-barcode-scanner-target="startBtn"
+              class="flex items-center gap-1.5 bg-[#2C5159]/90 hover:bg-[#2C5159]/80 text-[#FDFDFD]/90 text-sm font-bold py-2 px-4 rounded-full shadow-sm transition-colors cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+          <path fill-rule="evenodd" d="M1 8a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 018.07 3h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0016.07 6H17a2 2 0 012 2v7a2 2 0 01-2 2H3a2 2 0 01-2-2V8zm13.5 3a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM10 14a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+        </svg>
+        スキャン開始
+      </button>
+
+      <%# 停止ボタン（初期はhidden） %>
+      <button type="button"
+              data-action="click->barcode-scanner#stop"
+              data-barcode-scanner-target="stopBtn"
+              class="hidden items-center gap-1.5 bg-[#2C5159]/90 hover:bg-[#2C5159]/80 text-[#FDFDFD]/90 text-sm font-bold py-2 px-4 rounded-full shadow-sm transition-colors cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+          <path fill-rule="evenodd" d="M2 10a8 8 0 1116 0 8 8 0 01-16 0zm5-2.25A.75.75 0 017.75 7h4.5a.75.75 0 01.75.75v4.5a.75.75 0 01-.75.75h-4.5a.75.75 0 01-.75-.75v-4.5z" clip-rule="evenodd" />
+        </svg>
+        スキャン停止
+      </button>
+
+    </div>
+
+    <%# ステータス・結果表示（ボタンの直下・右寄せ） %>
+    <div class="flex flex-col items-end max-w-xs md:max-w-xl mx-auto">
+      <p data-barcode-scanner-target="status"
+         class="text-sm font-bold text-gray-500 text-right">
+        バーコードをスキャンして<br>食材名を自動入力できます
+      </p>
+      <p class="text-xs text-gray-400 h-4">
+        <span data-barcode-scanner-target="result"></span>
+      </p>
+    </div>
+
+    <%# フォームカード（max-w-7xl 内で中央配置） %>
+    <div class="max-w-xs md:max-w-xl mx-auto w-full">
+      <%= render 'form', food: @food, categories: @categories %>
+    </div>
+
   </div>
+
   <div class="text-center mt-6">
     <%= link_to "一覧に戻る", foods_path, class: "text-[#2C5159] hover:text-[#6BAFB9] text-sm underline decoration-gray-300 hover:decoration-[#6BAFB9] transition-all" %>
   </div>

@@ -26,7 +26,6 @@ export default class extends Controller {
     this.#setStatus("scanning", "カメラを起動中...")
     this.startBtnTarget.classList.add("hidden")
     this.stopBtnTarget.classList.remove("hidden")
-    this.resultTarget.textContent = "スキャン待機中..."
     this.cameraTarget.style.display = "block" // カメラ枠を表示
 
     Quagga.init(
@@ -83,7 +82,6 @@ export default class extends Controller {
 
     this.detected = true
     this.#stopScanner()
-    this.resultTarget.textContent = code
     this.#setStatus("success", `読み取り成功しました。`)
     this.#resetButtons()
 

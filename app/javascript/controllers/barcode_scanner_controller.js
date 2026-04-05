@@ -73,6 +73,10 @@ export default class extends Controller {
     const code = result.codeResult.code
     if (!code) return
 
+    if (!code.startsWith("45") && !code.startsWith("49")) {
+      return
+    }
+
     // 誤検出防止フィルター
     const errors = result.codeResult.decodedCodes
       .filter(x => x.error !== undefined)
